@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AutoStock IMS - Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            background: #111827;
+            color: white;
+            padding: 24px 35px;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: #d1d5db;
+            font-size: 15px;
+        }
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 21px;
+            margin-bottom: 18px;
+        }
+
+        /* =========================
+           KPI CARDS
+        ========================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 22px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.15s ease,
+                        box-shadow 0.15s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-link {
+            display: inline-block;
+            text-decoration: none;
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           FINANCIAL
+        ========================= */
+
+        .financial {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .financial .card-value {
+            font-size: 24px;
+        }
+
+        /* =========================
+           TABLES
+        ========================= */
+
+        .tables {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 10px;
+            padding: 22px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        th {
+            background: #f9fafb;
+            color: #4b5563;
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+            background: #e5e7eb;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .navigation {
+            margin-top: 30px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .navigation a {
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .navigation a:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty {
+            color: #6b7280;
+            padding: 20px 0;
+            font-size: 14px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1100px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tables {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .financial {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+    <div class="header-content">
+
+        <h1>AutoStock IMS</h1>
+
+        <p>
+            Car Showroom Inventory Management System
+        </p>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- =========================================================
+     VEHICLE OVERVIEW
+========================================================= -->
+
+<h2 class="section-title">
+    Vehicle Overview
+</h2>
+
+<section class="cards">
+
+
+    <!-- TOTAL VEHICLES -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Total Vehicles
+        </div>
+
+        <div class="card-value">
+            {{ total_vehicles }}
+        </div>
+
+        <a
+            class="card-link"
+            href="{% url 'vehicle_list' %}"
+        >
+            View All Vehicles →
+        </a>
+
+    </div>
+
+
+    <!-- IN STOCK -->
+
+    <div class="card">
+
+        <div class="card-title">
+            In Stock
+        </div>
+
+        <div class="card-value">
+            {{ in_stock_vehicles }}
+        </div>
+
+        <a
+            class="card-link"
+            href="{% url 'vehicle_list' %}?status=IN_STOCK"
+        >
+            View In Stock →
+        </a>
+
+    </div>
+
+
+    <!-- IN TRANSIT -->
+
+    <div class="card">
+
+        <div class="card-title">
+            In Transit
+        </div>
+
+        <div class="card-value">
+            {{ in_transit_vehicles }}
+        </div>
+
+        <a
+            class="card-link"
+            href="{% url 'vehicle_list' %}?status=IN_TRANSIT"
+        >
+            View In Transit →
+        </a>
+
+    </div>
+
+
+    <!-- RESERVED -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Reserved
+        </div>
+
+        <div class="card-value">
+            {{ reserved_vehicles }}
+        </div>
+
+        <a
+            class="card-link"
+            href="{% url 'vehicle_list' %}?status=RESERVED"
+        >
+            View Reserved →
+        </a>
+
+    </div>
+
+
+    <!-- TEST DRIVE -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Test Drive
+        </div>
+
+        <div class="card-value">
+            {{ test_drive_vehicles }}
+        </div>
+
+        <a
+            class="card-link"
+            href="{% url 'vehicle_list' %}?status=TEST_DRIVE"
+        >
+            View Test Drives →
+        </a>
+
+    </div>
+
+
+    <!-- SOLD -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Sold
+        </div>
+
+        <div class="card-value">
+            {{ sold_vehicles }}
+        </div>
+
+        <a
+            class="card-link"
+            href="{% url 'vehicle_list' %}?status=SOLD"
+        >
+            View Sold →
+        </a>
+
+    </div>
+
+
+    <!-- DELIVERED -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Delivered
+        </div>
+
+        <div class="card-value">
+            {{ delivered_vehicles }}
+        </div>
+
+        <a
+            class="card-link"
+            href="{% url 'vehicle_list' %}?status=DELIVERED"
+        >
+            View Delivered →
+        </a>
+
+    </div>
+
+
+    <!-- SERVICE -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Service
+        </div>
+
+        <div class="card-value">
+            {{ service_vehicles }}
+        </div>
+
+        <a
+            class="card-link"
+            href="{% url 'vehicle_list' %}?status=SERVICE"
+        >
+            View Service →
+        </a>
+
+    </div>
+
+
+    <!-- DAMAGED -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Damaged
+        </div>
+
+        <div class="card-value">
+            {{ damaged_vehicles }}
+        </div>
+
+        <a
+            class="card-link"
+            href="{% url 'vehicle_list' %}?status=DAMAGED"
+        >
+            View Damaged →
+        </a>
+
+    </div>
+
+
+    <!-- LOCATIONS -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Active Locations
+        </div>
+
+        <div class="card-value">
+            {{ active_locations }}
+        </div>
+
+        <a
+            class="card-link"
+            href="/admin/locations/location/"
+        >
+            Manage Locations →
+        </a>
+
+    </div>
+
+
+    <!-- MOVEMENTS -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Total Movements
+        </div>
+
+        <div class="card-value">
+            {{ total_movements }}
+        </div>
+
+        <a
+            class="card-link"
+            href="/admin/inventory/vehiclemovement/"
+        >
+            View Movements →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FINANCIAL OVERVIEW
+========================================================= -->
+
+<h2 class="section-title">
+    Financial Overview
+</h2>
+
+<section class="financial">
+
+
+    <!-- PURCHASE VALUE -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Total Purchase Value
+        </div>
+
+        <div class="card-value">
+            ₹{{ purchase_value|floatformat:2 }}
+        </div>
+
+    </div>
+
+
+    <!-- SELLING VALUE -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Total Selling Value
+        </div>
+
+        <div class="card-value">
+            ₹{{ selling_value|floatformat:2 }}
+        </div>
+
+    </div>
+
+
+    <!-- EXPECTED PROFIT -->
+
+    <div class="card">
+
+        <div class="card-title">
+            Expected Profit
+        </div>
+
+        <div class="card-value">
+            ₹{{ expected_profit|floatformat:2 }}
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     RECENT DATA
+========================================================= -->
+
+<section class="tables">
+
+
+    <!-- =====================================================
+         RECENT VEHICLES
+    ====================================================== -->
+
+    <div class="table-card">
+
+        <h2 class="section-title">
+            Recent Vehicles
+        </h2>
+
+
+        {% if recent_vehicles %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>VIN</th>
+
+                    <th>Vehicle</th>
+
+                    <th>Status</th>
+
+                    <th>Location</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for vehicle in recent_vehicles %}
+
+                <tr>
+
+                    <td>
+                        {{ vehicle.vin_number }}
+                    </td>
+
+
+                    <td>
+
+                        {{ vehicle.brand }}
+                        {{ vehicle.car_model }}
+
+                        {% if vehicle.vehicle_variant %}
+                            - {{ vehicle.vehicle_variant.name }}
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="status">
+
+                            {{ vehicle.get_status_display }}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        {% if vehicle.current_location %}
+
+                            {{ vehicle.current_location.name }}
+
+                        {% else %}
+
+                            Not Assigned
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+        {% else %}
+
+        <p class="empty">
+            No vehicles available.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =====================================================
+         RECENT MOVEMENTS
+    ====================================================== -->
+
+    <div class="table-card">
+
+        <h2 class="section-title">
+            Recent Movements
+        </h2>
+
+
+        {% if recent_movements %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Vehicle</th>
+
+                    <th>From</th>
+
+                    <th>To</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for movement in recent_movements %}
+
+                <tr>
+
+                    <td>
+                        {{ movement.vehicle.vin_number }}
+                    </td>
+
+
+                    <td>
+
+                        {% if movement.from_location %}
+
+                            {{ movement.from_location.name }}
+
+                        {% else %}
+
+                            Initial Location
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+                        {{ movement.to_location.name }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+        {% else %}
+
+        <p class="empty">
+            No vehicle movements recorded.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<div class="navigation">
+
+    <a href="{% url 'vehicle_list' %}">
+        Vehicle Inventory
+    </a>
+
+    <a href="/admin/">
+        Django Admin
+    </a>
+
+</div>
+
+
+</main>
+
+</body>
+</html>
