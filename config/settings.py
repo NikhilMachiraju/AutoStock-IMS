@@ -20,9 +20,9 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = [
+    "autostock-ims.onrender.com",
     "localhost",
     "127.0.0.1",
-    ".vercel.app",
 ]
 
 
