@@ -10,5 +10,6 @@ urlpatterns = [
         include('inventory.urls')
     ),
     path("accounts/", include("accounts.urls")),
+    path("customers/", include("customers.urls")),
 ]
 

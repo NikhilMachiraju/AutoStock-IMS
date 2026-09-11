@@ -6,798 +6,1753 @@
 
     <title>AutoStock IMS - Dashboard</title>
 
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
     <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f6f9;
-            color: #1f2937;
+            margin: 0;
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: #f5f7fb;
+            color: #172033;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
+        a {
+            text-decoration: none;
+        }
 
-        .header {
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: 250px;
+            height: 100vh;
+
             background: #111827;
             color: white;
-            padding: 24px 35px;
+
+            padding: 24px 16px;
+
+            z-index: 1000;
         }
 
-        .header-content {
-            max-width: 1400px;
-            margin: auto;
+        .brand {
+            padding: 4px 12px 30px;
         }
 
-        .header h1 {
-            font-size: 30px;
-            margin-bottom: 6px;
+        .brand h1 {
+            margin: 0;
+
+            font-size: 23px;
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
         }
 
-        .header p {
-            color: #d1d5db;
-            font-size: 15px;
+        .brand p {
+            margin: 5px 0 0;
+
+            font-size: 11px;
+            color: #9ca3af;
         }
 
-        /* =========================
-           CONTAINER
-        ========================= */
+        .nav-title {
+            padding: 0 12px;
+            margin: 18px 0 8px;
 
-        .container {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
+            font-size: 10px;
+            font-weight: 700;
 
-        .section-title {
-            font-size: 21px;
-            margin-bottom: 18px;
-        }
-
-        /* =========================
-           KPI CARDS
-        ========================= */
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-bottom: 35px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 22px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: transform 0.15s ease,
-                        box-shadow 0.15s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
-        }
-
-        .card-title {
-            font-size: 14px;
             color: #6b7280;
-            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .card-value {
-            font-size: 30px;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 11px 13px;
+            margin-bottom: 4px;
+
+            border-radius: 9px;
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+            font-weight: 500;
+
+            transition: all 0.2s ease;
         }
 
-        .card-link {
-            display: inline-block;
-            text-decoration: none;
-            color: #2563eb;
+        .sidebar-nav a i {
+            font-size: 17px;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 22px;
+            left: 16px;
+            right: 16px;
+        }
+
+        .admin-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 11px 13px;
+
+            border-radius: 9px;
+
+            color: #cbd5e1;
+            background: #1f2937;
+
             font-size: 13px;
+        }
+
+        .admin-link:hover {
+            color: white;
+            background: #374151;
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+        ===================================================== */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+            height: 72px;
+
+            background: white;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 32px;
+        }
+
+        .topbar-title h2 {
+            margin: 0;
+
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .topbar-title p {
+            margin: 3px 0 0;
+
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notification {
+            width: 38px;
+            height: 38px;
+
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #4b5563;
+
+            background: white;
+        }
+
+        .notification:hover {
+            background: #f3f4f6;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .profile-text strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .profile-text span {
+            display: block;
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+            padding: 30px 32px 50px;
+        }
+
+        .page-heading {
+            margin-bottom: 24px;
+        }
+
+        .page-heading h1 {
+            margin: 0;
+
+            font-size: 26px;
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+        }
+
+        .page-heading p {
+            margin: 5px 0 0;
+
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           KPI CARDS
+        ===================================================== */
+
+        .kpi-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 16px;
+
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            position: relative;
+
+            background: white;
+
+            border: 1px solid #e8ebf0;
+            border-radius: 14px;
+
+            padding: 19px;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+            overflow: hidden;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .kpi-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .kpi-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 11px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 19px;
+
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .kpi-title {
+            margin-top: 15px;
+
+            font-size: 12px;
+            color: #6b7280;
             font-weight: 600;
         }
 
-        .card-link:hover {
-            text-decoration: underline;
+        .kpi-value {
+            margin-top: 3px;
+
+            font-size: 27px;
+            font-weight: 800;
+
+            color: #111827;
         }
 
-        /* =========================
-           FINANCIAL
-        ========================= */
+        .kpi-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
 
-        .financial {
+            margin-top: 10px;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            color: #2563eb;
+        }
+
+        .kpi-link:hover {
+            color: #1d4ed8;
+        }
+
+
+        /* =====================================================
+           SPECIAL KPI COLORS
+        ===================================================== */
+
+        .icon-green {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .icon-orange {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+
+        .icon-purple {
+            background: #f5f3ff;
+            color: #7c3aed;
+        }
+
+        .icon-red {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .icon-yellow {
+            background: #fefce8;
+            color: #ca8a04;
+        }
+
+
+        /* =====================================================
+           SECTION HEADER
+        ===================================================== */
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+        }
+
+        .section-header h3 {
+            margin: 0;
+
+            font-size: 17px;
+            font-weight: 750;
+        }
+
+        .section-header span {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+
+        /* =====================================================
+           FINANCIAL CARDS
+        ===================================================== */
+
+        .financial-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin-bottom: 35px;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 16px;
+
+            margin-bottom: 30px;
         }
 
-        .financial .card-value {
+        .financial-card {
+            background: white;
+
+            border: 1px solid #e8ebf0;
+            border-radius: 14px;
+
+            padding: 22px;
+
+            position: relative;
+        }
+
+        .financial-label {
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .financial-value {
+            margin-top: 8px;
+
             font-size: 24px;
+            font-weight: 800;
+
+            color: #111827;
         }
 
-        /* =========================
-           TABLES
-        ========================= */
+        .financial-icon {
+            position: absolute;
 
-        .tables {
+            right: 20px;
+            top: 20px;
+
+            font-size: 21px;
+            color: #2563eb;
+        }
+
+
+        /* =====================================================
+           TABLE CARDS
+        ===================================================== */
+
+        .table-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+
+            grid-template-columns:
+                minmax(0, 1.4fr)
+                minmax(0, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 30px;
         }
 
         .table-card {
             background: white;
-            border-radius: 10px;
-            padding: 22px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+            border: 1px solid #e8ebf0;
+            border-radius: 14px;
+
+            overflow: hidden;
+        }
+
+        .table-card-header {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 19px 20px;
+
+            border-bottom: 1px solid #eef0f3;
+        }
+
+        .table-card-header h3 {
+            margin: 0;
+
+            font-size: 15px;
+            font-weight: 750;
+        }
+
+        .table-card-header a {
+            font-size: 11px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .table-wrapper {
             overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th,
-        td {
-            padding: 12px 8px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 13px;
-            white-space: nowrap;
         }
 
         th {
-            background: #f9fafb;
-            color: #4b5563;
-            font-weight: 600;
+            padding: 12px 15px;
+
+            background: #f8fafc;
+
+            color: #64748b;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+
+            text-align: left;
+
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 13px 15px;
+
+            border-bottom: 1px solid #f0f2f5;
+
+            color: #334155;
+
+            font-size: 11px;
+
+            white-space: nowrap;
         }
 
         tr:last-child td {
             border-bottom: none;
         }
 
-        /* =========================
-           STATUS
-        ========================= */
-
-        .status {
-            display: inline-block;
-            padding: 5px 9px;
-            border-radius: 15px;
-            font-size: 11px;
-            font-weight: bold;
-            background: #e5e7eb;
+        tbody tr:hover {
+            background: #fafcff;
         }
 
-        /* =========================
-           NAVIGATION
-        ========================= */
 
-        .navigation {
-            margin-top: 30px;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+        /* =====================================================
+           VEHICLE VIN
+        ===================================================== */
 
-        .navigation a {
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            padding: 11px 18px;
-            border-radius: 6px;
-            font-size: 14px;
+        .vin {
+            font-family: monospace;
+
+            font-size: 10px;
+
+            color: #475569;
+
             font-weight: 600;
         }
 
-        .navigation a:hover {
-            background: #1d4ed8;
+
+        /* =====================================================
+           STATUS BADGES
+        ===================================================== */
+
+        .status {
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 9px;
+            font-weight: 700;
+
+            background: #f1f5f9;
+            color: #475569;
         }
 
-        /* =========================
-           EMPTY STATE
-        ========================= */
+        .status::before {
+            content: "";
+
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: currentColor;
+
+            margin-right: 5px;
+        }
+
+        .status.in_stock {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .status.in_transit {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+
+        .status.reserved {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .status.sold {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .status.delivered {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .status.service {
+            background: #f5f3ff;
+            color: #7c3aed;
+        }
+
+        .status.damaged {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .status.test_drive {
+            background: #f0f9ff;
+            color: #0284c7;
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
 
         .empty {
-            color: #6b7280;
-            padding: 20px 0;
-            font-size: 14px;
+            padding: 35px 20px;
+
+            text-align: center;
+
+            color: #94a3b8;
+
+            font-size: 12px;
         }
 
-        /* =========================
-           RESPONSIVE
-        ========================= */
 
-        @media (max-width: 1100px) {
+        /* =====================================================
+           QUICK ACTIONS
+        ===================================================== */
 
-            .cards {
-                grid-template-columns: repeat(2, 1fr);
+        .quick-actions {
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        .quick-action {
+            display: inline-flex;
+
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 15px;
+
+            border-radius: 9px;
+
+            background: #2563eb;
+            color: white;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            transition: all 0.2s ease;
+        }
+
+        .quick-action:hover {
+            background: #1d4ed8;
+
+            color: white;
+
+            transform: translateY(-1px);
+        }
+
+        .quick-action.secondary {
+            background: white;
+
+            color: #334155;
+
+            border: 1px solid #e2e8f0;
+        }
+
+        .quick-action.secondary:hover {
+            background: #f8fafc;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 1200px) {
+
+            .kpi-grid {
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
             }
 
-            .tables {
+            .sidebar {
+                width: 220px;
+            }
+
+            .main {
+                margin-left: 220px;
+            }
+        }
+
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+                height: auto;
+
+                padding: 15px;
+            }
+
+            .brand {
+                padding-bottom: 15px;
+            }
+
+            .sidebar-nav {
+                display: flex;
+
+                overflow-x: auto;
+
+                gap: 5px;
+            }
+
+            .sidebar-nav a {
+                white-space: nowrap;
+            }
+
+            .nav-title,
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .kpi-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .table-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 700px) {
 
-            .cards {
+        @media (max-width: 600px) {
+
+            .topbar {
+                padding: 0 15px;
+            }
+
+            .topbar-title p {
+                display: none;
+            }
+
+            .profile-text {
+                display: none;
+            }
+
+            .content {
+                padding: 22px 15px 40px;
+            }
+
+            .kpi-grid,
+            .financial-grid {
                 grid-template-columns: 1fr;
             }
 
-            .financial {
-                grid-template-columns: 1fr;
-            }
-
-            .header {
-                padding: 20px;
-            }
-
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .container {
-                padding: 0 12px;
+            .page-heading h1 {
+                font-size: 22px;
             }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <!-- =========================================================
-     HEADER
+     SIDEBAR
 ========================================================= -->
 
-<header class="header">
+<aside class="sidebar">
 
-    <div class="header-content">
+    <div class="brand">
 
-        <h1>AutoStock IMS</h1>
+        <h1>
+            <i class="bi bi-car-front-fill"></i>
+            AutoStock
+        </h1>
 
         <p>
-            Car Showroom Inventory Management System
+            Inventory Management System
         </p>
 
     </div>
 
-</header>
+
+    <div class="nav-title">
+        Main Menu
+    </div>
 
 
-<main class="container">
+    <nav class="sidebar-nav">
+
+        <a href="#" class="active">
+            <i class="bi bi-grid-1x2-fill"></i>
+            Dashboard
+        </a>
+
+        <a href="{% url 'vehicle_list' %}">
+            <i class="bi bi-car-front"></i>
+            Vehicles
+        </a>
+
+        <a href="#">
+            <i class="bi bi-people"></i>
+            Customers
+        </a>
+
+        <a href="#">
+            <i class="bi bi-receipt"></i>
+            Sales
+        </a>
+
+        <a href="#">
+            <i class="bi bi-calendar-check"></i>
+            Reservations
+        </a>
+
+        <a href="#">
+            <i class="bi bi-box-seam"></i>
+            Procurement
+        </a>
+
+        <a href="#">
+            <i class="bi bi-geo-alt"></i>
+            Locations
+        </a>
+
+        <a href="#">
+            <i class="bi bi-bar-chart"></i>
+            Reports
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="/admin/" class="admin-link">
+
+            <i class="bi bi-gear"></i>
+
+            <span>
+                Django Administration
+            </span>
+
+        </a>
+
+    </div>
+
+</aside>
+
 
 
 <!-- =========================================================
-     VEHICLE OVERVIEW
+     MAIN
 ========================================================= -->
 
-<h2 class="section-title">
-    Vehicle Overview
-</h2>
-
-<section class="cards">
-
-
-    <!-- TOTAL VEHICLES -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Total Vehicles
-        </div>
-
-        <div class="card-value">
-            {{ total_vehicles }}
-        </div>
-
-        <a
-            class="card-link"
-            href="{% url 'vehicle_list' %}"
-        >
-            View All Vehicles →
-        </a>
-
-    </div>
-
-
-    <!-- IN STOCK -->
-
-    <div class="card">
-
-        <div class="card-title">
-            In Stock
-        </div>
-
-        <div class="card-value">
-            {{ in_stock_vehicles }}
-        </div>
-
-        <a
-            class="card-link"
-            href="{% url 'vehicle_list' %}?status=IN_STOCK"
-        >
-            View In Stock →
-        </a>
-
-    </div>
-
-
-    <!-- IN TRANSIT -->
-
-    <div class="card">
-
-        <div class="card-title">
-            In Transit
-        </div>
-
-        <div class="card-value">
-            {{ in_transit_vehicles }}
-        </div>
-
-        <a
-            class="card-link"
-            href="{% url 'vehicle_list' %}?status=IN_TRANSIT"
-        >
-            View In Transit →
-        </a>
-
-    </div>
-
-
-    <!-- RESERVED -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Reserved
-        </div>
-
-        <div class="card-value">
-            {{ reserved_vehicles }}
-        </div>
-
-        <a
-            class="card-link"
-            href="{% url 'vehicle_list' %}?status=RESERVED"
-        >
-            View Reserved →
-        </a>
-
-    </div>
-
-
-    <!-- TEST DRIVE -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Test Drive
-        </div>
-
-        <div class="card-value">
-            {{ test_drive_vehicles }}
-        </div>
-
-        <a
-            class="card-link"
-            href="{% url 'vehicle_list' %}?status=TEST_DRIVE"
-        >
-            View Test Drives →
-        </a>
-
-    </div>
-
-
-    <!-- SOLD -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Sold
-        </div>
-
-        <div class="card-value">
-            {{ sold_vehicles }}
-        </div>
-
-        <a
-            class="card-link"
-            href="{% url 'vehicle_list' %}?status=SOLD"
-        >
-            View Sold →
-        </a>
-
-    </div>
-
-
-    <!-- DELIVERED -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Delivered
-        </div>
-
-        <div class="card-value">
-            {{ delivered_vehicles }}
-        </div>
-
-        <a
-            class="card-link"
-            href="{% url 'vehicle_list' %}?status=DELIVERED"
-        >
-            View Delivered →
-        </a>
-
-    </div>
-
-
-    <!-- SERVICE -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Service
-        </div>
-
-        <div class="card-value">
-            {{ service_vehicles }}
-        </div>
-
-        <a
-            class="card-link"
-            href="{% url 'vehicle_list' %}?status=SERVICE"
-        >
-            View Service →
-        </a>
-
-    </div>
-
-
-    <!-- DAMAGED -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Damaged
-        </div>
-
-        <div class="card-value">
-            {{ damaged_vehicles }}
-        </div>
-
-        <a
-            class="card-link"
-            href="{% url 'vehicle_list' %}?status=DAMAGED"
-        >
-            View Damaged →
-        </a>
-
-    </div>
-
-
-    <!-- LOCATIONS -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Active Locations
-        </div>
-
-        <div class="card-value">
-            {{ active_locations }}
-        </div>
-
-        <a
-            class="card-link"
-            href="/admin/locations/location/"
-        >
-            Manage Locations →
-        </a>
-
-    </div>
-
-
-    <!-- MOVEMENTS -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Total Movements
-        </div>
-
-        <div class="card-value">
-            {{ total_movements }}
-        </div>
-
-        <a
-            class="card-link"
-            href="/admin/inventory/vehiclemovement/"
-        >
-            View Movements →
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     FINANCIAL OVERVIEW
-========================================================= -->
-
-<h2 class="section-title">
-    Financial Overview
-</h2>
-
-<section class="financial">
-
-
-    <!-- PURCHASE VALUE -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Total Purchase Value
-        </div>
-
-        <div class="card-value">
-            ₹{{ purchase_value|floatformat:2 }}
-        </div>
-
-    </div>
-
-
-    <!-- SELLING VALUE -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Total Selling Value
-        </div>
-
-        <div class="card-value">
-            ₹{{ selling_value|floatformat:2 }}
-        </div>
-
-    </div>
-
-
-    <!-- EXPECTED PROFIT -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Expected Profit
-        </div>
-
-        <div class="card-value">
-            ₹{{ expected_profit|floatformat:2 }}
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     RECENT DATA
-========================================================= -->
-
-<section class="tables">
+<main class="main">
 
 
     <!-- =====================================================
-         RECENT VEHICLES
+         TOPBAR
     ====================================================== -->
 
-    <div class="table-card">
+    <header class="topbar">
 
-        <h2 class="section-title">
-            Recent Vehicles
-        </h2>
+        <div class="topbar-title">
 
+            <h2>
+                Dashboard
+            </h2>
 
-        {% if recent_vehicles %}
+            <p>
+                Monitor your showroom inventory and operations
+            </p>
 
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>VIN</th>
-
-                    <th>Vehicle</th>
-
-                    <th>Status</th>
-
-                    <th>Location</th>
-
-                </tr>
-
-            </thead>
+        </div>
 
 
-            <tbody>
+        <div class="topbar-right">
 
-                {% for vehicle in recent_vehicles %}
+            <div class="notification">
 
-                <tr>
+                <i class="bi bi-bell"></i>
 
-                    <td>
-                        {{ vehicle.vin_number }}
-                    </td>
+            </div>
 
 
-                    <td>
+            <div class="profile">
 
-                        {{ vehicle.brand }}
-                        {{ vehicle.car_model }}
+                <div class="avatar">
+                    A
+                </div>
 
-                        {% if vehicle.vehicle_variant %}
-                            - {{ vehicle.vehicle_variant.name }}
-                        {% endif %}
+                <div class="profile-text">
 
-                    </td>
+                    <strong>
+                        Administrator
+                    </strong>
 
+                    <span>
+                        Inventory Manager
+                    </span>
 
-                    <td>
+                </div>
 
-                        <span class="status">
+            </div>
 
-                            {{ vehicle.get_status_display }}
+        </div>
 
-                        </span>
+    </header>
 
-                    </td>
-
-
-                    <td>
-
-                        {% if vehicle.current_location %}
-
-                            {{ vehicle.current_location.name }}
-
-                        {% else %}
-
-                            Not Assigned
-
-                        {% endif %}
-
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
-
-
-        {% else %}
-
-        <p class="empty">
-            No vehicles available.
-        </p>
-
-        {% endif %}
-
-    </div>
 
 
     <!-- =====================================================
-         RECENT MOVEMENTS
+         CONTENT
     ====================================================== -->
 
-    <div class="table-card">
-
-        <h2 class="section-title">
-            Recent Movements
-        </h2>
+    <div class="content">
 
 
-        {% if recent_movements %}
+        <div class="page-heading">
 
-        <table>
+            <h1>
+                Overview
+            </h1>
 
-            <thead>
+            <p>
+                Here's what's happening with your vehicle inventory today.
+            </p>
 
-                <tr>
-
-                    <th>Vehicle</th>
-
-                    <th>From</th>
-
-                    <th>To</th>
-
-                </tr>
-
-            </thead>
+        </div>
 
 
-            <tbody>
 
-                {% for movement in recent_movements %}
+        <!-- =================================================
+             VEHICLE OVERVIEW
+        ================================================== -->
 
-                <tr>
+        <div class="section-header">
 
-                    <td>
-                        {{ movement.vehicle.vin_number }}
-                    </td>
+            <h3>
+                Vehicle Overview
+            </h3>
 
+            <span>
+                Live inventory status
+            </span>
 
-                    <td>
-
-                        {% if movement.from_location %}
-
-                            {{ movement.from_location.name }}
-
-                        {% else %}
-
-                            Initial Location
-
-                        {% endif %}
-
-                    </td>
+        </div>
 
 
-                    <td>
-                        {{ movement.to_location.name }}
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
+        <section class="kpi-grid">
 
 
-        {% else %}
+            <!-- TOTAL -->
 
-        <p class="empty">
-            No vehicle movements recorded.
-        </p>
+            <div class="kpi-card">
 
-        {% endif %}
+                <div class="kpi-top">
+
+                    <div class="kpi-icon">
+                        <i class="bi bi-car-front-fill"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    Total Vehicles
+                </div>
+
+                <div class="kpi-value">
+                    {{ total_vehicles }}
+                </div>
+
+                <a
+                    href="{% url 'vehicle_list' %}"
+                    class="kpi-link"
+                >
+                    View vehicles
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- IN STOCK -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon icon-green">
+                        <i class="bi bi-box-seam-fill"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    In Stock
+                </div>
+
+                <div class="kpi-value">
+                    {{ in_stock_vehicles }}
+                </div>
+
+                <a
+                    href="{% url 'vehicle_list' %}?status=IN_STOCK"
+                    class="kpi-link"
+                >
+                    View stock
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- TRANSIT -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon icon-orange">
+                        <i class="bi bi-truck"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    In Transit
+                </div>
+
+                <div class="kpi-value">
+                    {{ in_transit_vehicles }}
+                </div>
+
+                <a
+                    href="{% url 'vehicle_list' %}?status=IN_TRANSIT"
+                    class="kpi-link"
+                >
+                    View transit
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- RESERVED -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon icon-yellow">
+                        <i class="bi bi-bookmark-check-fill"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    Reserved
+                </div>
+
+                <div class="kpi-value">
+                    {{ reserved_vehicles }}
+                </div>
+
+                <a
+                    href="{% url 'vehicle_list' %}?status=RESERVED"
+                    class="kpi-link"
+                >
+                    View reserved
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- TEST DRIVE -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon">
+                        <i class="bi bi-speedometer2"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    Test Drive
+                </div>
+
+                <div class="kpi-value">
+                    {{ test_drive_vehicles }}
+                </div>
+
+                <a
+                    href="{% url 'vehicle_list' %}?status=TEST_DRIVE"
+                    class="kpi-link"
+                >
+                    View test drives
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- SOLD -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon icon-purple">
+                        <i class="bi bi-currency-rupee"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    Sold
+                </div>
+
+                <div class="kpi-value">
+                    {{ sold_vehicles }}
+                </div>
+
+                <a
+                    href="{% url 'vehicle_list' %}?status=SOLD"
+                    class="kpi-link"
+                >
+                    View sold
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- DELIVERED -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon icon-green">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    Delivered
+                </div>
+
+                <div class="kpi-value">
+                    {{ delivered_vehicles }}
+                </div>
+
+                <a
+                    href="{% url 'vehicle_list' %}?status=DELIVERED"
+                    class="kpi-link"
+                >
+                    View delivered
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- SERVICE -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon icon-purple">
+                        <i class="bi bi-tools"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    Service
+                </div>
+
+                <div class="kpi-value">
+                    {{ service_vehicles }}
+                </div>
+
+                <a
+                    href="{% url 'vehicle_list' %}?status=SERVICE"
+                    class="kpi-link"
+                >
+                    View service
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- DAMAGED -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon icon-red">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    Damaged
+                </div>
+
+                <div class="kpi-value">
+                    {{ damaged_vehicles }}
+                </div>
+
+                <a
+                    href="{% url 'vehicle_list' %}?status=DAMAGED"
+                    class="kpi-link"
+                >
+                    View damaged
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- LOCATIONS -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon icon-green">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    Active Locations
+                </div>
+
+                <div class="kpi-value">
+                    {{ active_locations }}
+                </div>
+
+                <a
+                    href="/admin/locations/location/"
+                    class="kpi-link"
+                >
+                    Manage locations
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- MOVEMENTS -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+
+                    <div class="kpi-icon">
+                        <i class="bi bi-arrow-left-right"></i>
+                    </div>
+
+                </div>
+
+                <div class="kpi-title">
+                    Total Movements
+                </div>
+
+                <div class="kpi-value">
+                    {{ total_movements }}
+                </div>
+
+                <a
+                    href="/admin/inventory/vehiclemovement/"
+                    class="kpi-link"
+                >
+                    View movements
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             FINANCIAL OVERVIEW
+        ================================================== -->
+
+        <div class="section-header">
+
+            <h3>
+                Financial Overview
+            </h3>
+
+            <span>
+                Inventory valuation
+            </span>
+
+        </div>
+
+
+        <section class="financial-grid">
+
+
+            <div class="financial-card">
+
+                <i class="bi bi-cart-check financial-icon"></i>
+
+                <div class="financial-label">
+                    Total Purchase Value
+                </div>
+
+                <div class="financial-value">
+                    ₹{{ purchase_value|floatformat:2 }}
+                </div>
+
+            </div>
+
+
+            <div class="financial-card">
+
+                <i class="bi bi-graph-up-arrow financial-icon"></i>
+
+                <div class="financial-label">
+                    Total Selling Value
+                </div>
+
+                <div class="financial-value">
+                    ₹{{ selling_value|floatformat:2 }}
+                </div>
+
+            </div>
+
+
+            <div class="financial-card">
+
+                <i class="bi bi-cash-stack financial-icon"></i>
+
+                <div class="financial-label">
+                    Expected Profit
+                </div>
+
+                <div class="financial-value">
+                    ₹{{ expected_profit|floatformat:2 }}
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECENT TABLES
+        ================================================== -->
+
+        <section class="table-grid">
+
+
+            <!-- RECENT VEHICLES -->
+
+            <div class="table-card">
+
+                <div class="table-card-header">
+
+                    <h3>
+                        Recent Vehicles
+                    </h3>
+
+                    <a href="{% url 'vehicle_list' %}">
+                        View all
+                    </a>
+
+                </div>
+
+
+                {% if recent_vehicles %}
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>VIN</th>
+
+                                <th>Vehicle</th>
+
+                                <th>Status</th>
+
+                                <th>Location</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for vehicle in recent_vehicles %}
+
+                            <tr>
+
+                                <td>
+
+                                    <span class="vin">
+                                        {{ vehicle.vin_number }}
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <strong>
+
+                                        {{ vehicle.brand }}
+                                        {{ vehicle.car_model }}
+
+                                        {% if vehicle.vehicle_variant %}
+                                            - {{ vehicle.vehicle_variant.name }}
+                                        {% endif %}
+
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span
+                                        class="status {{ vehicle.status|lower }}"
+                                    >
+                                        {{ vehicle.get_status_display }}
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if vehicle.current_location %}
+
+                                        <i class="bi bi-geo-alt"></i>
+                                        {{ vehicle.current_location.name }}
+
+                                    {% else %}
+
+                                        <span class="text-muted">
+                                            Not Assigned
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                {% else %}
+
+                    <div class="empty">
+                        <i class="bi bi-car-front"></i>
+                        <br>
+                        No vehicles available.
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- RECENT MOVEMENTS -->
+
+            <div class="table-card">
+
+                <div class="table-card-header">
+
+                    <h3>
+                        Recent Movements
+                    </h3>
+
+                    <a href="/admin/inventory/vehiclemovement/">
+                        View all
+                    </a>
+
+                </div>
+
+
+                {% if recent_movements %}
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Vehicle</th>
+
+                                <th>From</th>
+
+                                <th>To</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for movement in recent_movements %}
+
+                            <tr>
+
+                                <td>
+
+                                    <span class="vin">
+                                        {{ movement.vehicle.vin_number }}
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if movement.from_location %}
+
+                                        {{ movement.from_location.name }}
+
+                                    {% else %}
+
+                                        Initial Location
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+
+                                    <i class="bi bi-arrow-right"></i>
+
+                                    {{ movement.to_location.name }}
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                {% else %}
+
+                    <div class="empty">
+
+                        <i class="bi bi-arrow-left-right"></i>
+
+                        <br>
+
+                        No vehicle movements recorded.
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================== -->
+
+        <div class="section-header">
+
+            <h3>
+                Quick Actions
+            </h3>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+            <a
+                href="{% url 'vehicle_list' %}"
+                class="quick-action"
+            >
+
+                <i class="bi bi-car-front"></i>
+
+                Vehicle Inventory
+
+            </a>
+
+
+            <a
+                href="/admin/"
+                class="quick-action secondary"
+            >
+
+                <i class="bi bi-gear"></i>
+
+                Django Admin
+
+            </a>
+
+        </div>
+
 
     </div>
-
-</section>
-
-
-<!-- =========================================================
-     NAVIGATION
-========================================================= -->
-
-<div class="navigation">
-
-    <a href="{% url 'vehicle_list' %}">
-        Vehicle Inventory
-    </a>
-
-    <a href="/admin/">
-        Django Admin
-    </a>
-
-</div>
-
 
 </main>
+
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
 
 </body>
 </html>
